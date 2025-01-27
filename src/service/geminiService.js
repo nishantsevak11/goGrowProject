@@ -9,11 +9,11 @@ const contentCache = new Map();
 
 // Function to generate a cache key
 const generateCacheKey = (name, categories) => {
-    return `${name}-${categories.sort().join(',')}-${new Date().toDateString()}`;
+    return categories;
 };
 
 // Function to generate content based on user preferences
-export const generateContent = async (categories = [], name) => {
+export const generateContent = async (categories, name) => {
     try {
         console.log(`Generating content for ${name} with categories:`, categories);
 
@@ -27,20 +27,20 @@ export const generateContent = async (categories = [], name) => {
         }
 
         // Create a personalized prompt based on categories
-        let prompt = `Generate a unique, personalized motivational message for ${name}. `;
+        // let prompt = `Generate a unique, personalized motivational message for ${name}. `;
 
-        if (categories.includes('motivation')) {
-            prompt += 'Include an inspiring quote or message about personal growth. ';
-        }
-        if (categories.includes('productivity')) {
-            prompt += 'Add practical tips for improving productivity and time management. ';
-        }
-        if (categories.includes('success')) {
-            prompt += 'Share a brief success story or achievement principle. ';
-        }
-        if (categories.includes('mindfulness')) {
-            prompt += 'Include mindfulness or meditation tips for mental clarity. ';
-        }
+        // if (categories.includes('motivation')) {
+        //     prompt += 'Include an inspiring quote or message about personal growth. ';
+        // }
+        // if (categories.includes('productivity')) {
+        //     prompt += 'Add practical tips for improving productivity and time management. ';
+        // }
+        // if (categories.includes('success')) {
+        //     prompt += 'Share a brief success story or achievement principle. ';
+        // }
+        // if (categories.includes('mindfulness')) {
+        //     prompt += 'Include mindfulness or meditation tips for mental clarity. ';
+        // }
 
         prompt += `Make it personal, engaging, and no more than 3 paragraphs. 
                   Use ${name}'s name in the message.
