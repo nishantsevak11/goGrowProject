@@ -36,7 +36,7 @@ const parseTimeString = (timeString) => {
 
 // Register user service
 export const registerUserService = async (userData) => {
-    const { name, email, password, sendTime } = userData;
+    const { name, email, password, sendTime, platform, categories, AiPrompt } = userData;
 
     if (!name || !email || !password) {
         throw new Error('Please fill all required fields');
@@ -74,7 +74,9 @@ export const registerUserService = async (userData) => {
         period: 'daily',
         status: true,
         isAdmin,
-        categories: userData.categories || ['motivation', 'productivity']
+        categories: userData.categories || "motivation",
+        platform:userData.platform || "Email",
+        AiPrompt : userData.AiPrompt
     });
 
     if (user) {
@@ -97,7 +99,7 @@ export const registerUserService = async (userData) => {
                 <ul style="list-style-type: none; padding: 0;">
                     <li>📅 Schedule: ${timeData.hour}:${timeData.minute.toString().padStart(2, '0')} ${timeData.meridiem}</li>
                     <li>🔄 Frequency: daily</li>
-                    <li>📝 Categories: ${user.categories.join(', ')}</li>
+                    <li>📝 Categories: ${user.categories}</li>
                 </ul>
 
                 <p>You can update your preferences anytime through your account settings.</p>

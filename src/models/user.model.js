@@ -24,27 +24,23 @@ const userSchema = new mongoose.Schema({
     },
     sendTime: {
         type: Number,
-        required: true,
         min: 1,
         max: 12,
         default: 9 
     },
     sendMinute: {
         type: Number,
-        required: true,
         min: 0,
         max: 59,
         default: 0
     },
     meridiem: {
         type: String,
-        required: true,
         enum: ['AM', 'PM'],
         default: 'AM'
     },
     period: {
         type: String,
-        required: true,
         enum: ['daily', 'weekly', 'monthly'],
         default: 'daily'
     },
@@ -53,7 +49,8 @@ const userSchema = new mongoose.Schema({
     },
     AiPrompt : {
         type : String,
-    }
+    },
+    platform: String
 }, {
     timestamps: true
 });

@@ -8,6 +8,7 @@ const loginUser = async (req, res) => {
     const userData = await loginUserService(email, password);
     res.status(200).json(userData);
   } catch (error) {
+    console.log(error.message)
     res.status(400).json({ message: error.message });
   }
 };
