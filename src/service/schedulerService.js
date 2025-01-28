@@ -66,7 +66,7 @@ const scheduleForUser = async (user) => {
                 
                 // Generate personalized content using Gemini
                 console.log(`Generating content for ${user.name} with categories:`, user.categories);
-                const content = await generateContent(user.categories, user.name);
+                const content = await generateContent(user.categories, user.name, user.AiPrompt);
                 
                 // Send email with personalized content
                 await sendEmailService(user.name, user.email, content);

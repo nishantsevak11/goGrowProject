@@ -13,12 +13,11 @@ const generateCacheKey = (name, categories) => {
 };
 
 // Function to generate content based on user preferences
-export const generateContent = async (categories, name) => {
+export const generateContent = async (categories, name,AiPrompt) => {
     try {
-        console.log(`Generating content for ${name} with categories:`, categories);
+        console.log(`Generating content for ${name} `);
 
-        // Generate cache key
-        const cacheKey = generateCacheKey(name, categories);
+        
 
         // Check if we already sent this content today
         if (contentCache.has(cacheKey)) {
@@ -43,9 +42,9 @@ export const generateContent = async (categories, name) => {
         // }
 
         prompt += `Make it personal, engaging, and no more than 3 paragraphs. 
-                  Use ${name}'s name in the message.
+                  Use ${name}'s name in the message and this is the message for you from user ${AiPrompt}.
                   Format the response in HTML with appropriate styling.
-                  Add emojis where appropriate to make it engaging.`;
+                  Add emojis where appropriate to make it engaging. NOTE : Every time the content is unique and according to user AIPrompt`;
 
         console.log('Sending prompt to Gemini:', prompt);
 
