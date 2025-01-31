@@ -43,6 +43,8 @@ const formatTime = (hour, minute, meridiem) => {
 // Schedule email for a single user
 const scheduleForUser = async (user) => {
     try {
+        console.log(`Attempting to schedule email for user: ${user.email}`); // Log user email
+
         // Cancel existing job if any
         if (userCronJobs.has(user._id.toString())) {
             userCronJobs.get(user._id.toString()).stop();
