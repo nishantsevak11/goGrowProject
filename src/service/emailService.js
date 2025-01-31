@@ -18,7 +18,7 @@ const sendEmailService = async (name, email, message) => {
         // Test the connection
         await transporter.verify();
         console.log('SMTP connection verified successfully');
-
+        const subject = `Savera Daily Motivation - ${new Date().toLocaleDateString()}`;
         // Email options
         const mailOptions = {
             from: {
@@ -26,7 +26,7 @@ const sendEmailService = async (name, email, message) => {
                 address: process.env.EMAIL_USER
             },
             to: email,
-            subject: 'Your Daily Inspiration from Savera',
+            subject: subject,
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
                     <h2 style="color: #2c3e50;">Hello ${name}!</h2>

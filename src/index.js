@@ -2,9 +2,10 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import authRouter from './routes/authRoute/authRoute.js';
-import scheduleRouter from './routes/v1/scheduleRoutes.js';
 import connectDb from './utils/databaseConnnect.js';
-import { initializeSchedules } from './service/schedulerService.js';
+import cron from 'node-cron';
+import sendDailyEmails from './service/emailScheduler.js';
+
 
 dotenv.config();
 
@@ -12,14 +13,13 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-    origin: '*', // Allows requests from any origin
+    origin: '*',
 }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/auth', authRouter);
-app.use('/schedule', scheduleRouter);
 
 const startServer = async () => {
     try {
@@ -27,14 +27,23 @@ const startServer = async () => {
         await connectDb();
         console.log('Connected to MongoDB');
 
-        // // Initialize email schedules
-        await initializeSchedules();
-        console.log('Email schedules initialized successfully');
 
         // Start server
         app.listen(PORT, () => {
             console.log(`Server is running on port ${PORT}`);
         });
+
+         // ✅ Schedule daily email job at 9:00 AM IST
+         cron.schedule("*/1 * * * *", async () => {
+            console.log("📩 Running daily email job...");
+            await sendDailyEmails();
+        }, {
+            scheduled: true,
+            timezone: "Asia/Kolkata"
+        });
+
+        console.log("✅ Email scheduler started...");
+
     } catch (error) {
         console.error('Error starting server:', error);
         process.exit(1);

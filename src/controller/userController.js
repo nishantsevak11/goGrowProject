@@ -1,6 +1,6 @@
 import userModel from "../models/user.model.js";
 import { loginUserService, registerUserService, getUserDataService } from "../service/authService.js";
-import { scheduleService } from "../service/schedule.js";
+
 
 const loginUser = async (req, res) => {
   try {
@@ -53,11 +53,9 @@ const updateUser = async (req, res) => {
     }
 
     // Update only allowed fields
-    const { name, email, sendTime, period, categories, AiPrompt} = req.body;
+    const { name, email,  categories, AiPrompt} = req.body;
     if (name) user.name = name;
     if (email) user.email = email;
-    if (sendTime) user.sendTime = sendTime;
-    if (period) user.period = period;
     if (categories) user.categories = categories;
     if (AiPrompt) user.AiPrompt = AiPrompt;
 
@@ -66,8 +64,6 @@ const updateUser = async (req, res) => {
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,
-      sendTime: updatedUser.sendTime,
-      period: updatedUser.period
     });
   } catch (error) {
     res.status(400).json({ message: error.message });

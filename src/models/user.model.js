@@ -22,28 +22,6 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
-    sendTime: {
-        type: Number,
-        min: 1,
-        max: 12,
-        default: 9 
-    },
-    sendMinute: {
-        type: Number,
-        min: 0,
-        max: 59,
-        default: 0
-    },
-    meridiem: {
-        type: String,
-        enum: ['AM', 'PM'],
-        default: 'AM'
-    },
-    period: {
-        type: String,
-        enum: ['daily', 'weekly', 'monthly'],
-        default: 'daily'
-    },
     categories: {
         type: String,
     },
