@@ -34,7 +34,7 @@ const startServer = async () => {
         });
 
          // ✅ Schedule daily email job at 9:00 AM IST
-         cron.schedule("*/1 * * * *", async () => {
+         cron.schedule("0 9 * * *", async () => {
             console.log("📩 Running daily email job...");
             await sendDailyEmails();
         }, {
