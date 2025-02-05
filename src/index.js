@@ -19,6 +19,21 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get('/send', (req,res)=>{
+    try{
+         await sendDailyEmails();
+         res.status(200).json({
+            message:"Email send successfullt",
+        })
+    }catch(err){
+        console.log("Failed to send emails ", err);
+        res.status(400).json({
+            message:"Email send Failed",
+            err : err
+        })
+    }
+})
+
 app.use('/auth', authRouter);
 
 const startServer = async () => {
@@ -34,15 +49,7 @@ const startServer = async () => {
         });
 
          // ✅ Schedule daily email job at 9:00 AM IST
-         cron.schedule("0 9 * * *", async () => {
-            console.log("📩 Running daily email job...");
-            await sendDailyEmails();
-        }, {
-            scheduled: true,
-            timezone: "Asia/Kolkata"
-        });
-
-        console.log("✅ Email scheduler started...");
+         
 
     } catch (error) {
         console.error('Error starting server:', error);
