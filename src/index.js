@@ -19,7 +19,7 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/send', (req,res)=>{
+app.get('/send', async(req,res)=>{
     try{
          await sendDailyEmails();
          res.status(200).json({
